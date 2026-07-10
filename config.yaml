@@ -1,0 +1,26 @@
+# Edit this file to tune what the radar looks for.
+
+categories:
+  - cs.CL   # computation & language (NLP, LLMs, RAG)
+  - cs.IR   # information retrieval
+  - cs.CV   # computer vision (VLMs, document AI)
+
+interests: |
+  - Retrieval-augmented generation (RAG): architectures, chunking, reranking, evaluation
+  - Document intelligence: PDF parsing/extraction, layout analysis, OCR, table extraction
+  - Vision-language models (VLMs) applied to documents, especially document-to-LaTeX
+    or document-to-Markdown conversion
+  - LLM evaluation and benchmarking for retrieval or document-understanding tasks
+  - Multi-tenant / production LLM system design
+
+# Cheap, fast model for scoring title+abstract pairs
+model: gpt-4o-mini
+
+# Papers scoring below this are dropped from the digest
+min_score: 8
+
+# How many recent papers to pull per category each run
+max_results_per_category: 100
+
+# Papers per LLM call
+batch_size: 12

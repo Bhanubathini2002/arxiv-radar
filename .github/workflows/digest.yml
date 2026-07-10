@@ -1,0 +1,49 @@
+name: arXiv digest
+
+on:
+  schedule:
+    # arXiv announces new papers ~00:00 UTC Sun–Thu. Run daily at 06:30 UTC
+    # (12:00 PM IST). Weekend runs find nothing new and exit quietly.
+    - cron: "30 6 * * *"
+  workflow_dispatch: {}   # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Fetch and score papers
+        id: radar
+        run: python arxiv_radar.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Commit digest
+        if: steps.radar.outputs.digest_path != ''
+        run: |
+          git config user.name "arxiv-radar[bot]"
+          git config user.email "actions@github.com"
+          git add digests/ data/seen.json
+          git diff --cached --quiet || git commit -m "digest: $(date -u +%F)"
+          git push
+
+      - name: Open digest issue
+        if: steps.radar.outputs.relevant_count != '' && steps.radar.outputs.relevant_count != '0'
+        run: |
+          gh issue create \
+            --title "arXiv digest — $(date -u +%F) (${{ steps.radar.outputs.relevant_count }} papers)" \
+            --body-file "${{ steps.radar.outputs.digest_path }}" \
+            --label digest
+        env:
+          GH_TOKEN: ${{ github.token }}
