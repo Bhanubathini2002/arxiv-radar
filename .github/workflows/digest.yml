@@ -2,9 +2,10 @@ name: arXiv digest
 
 on:
   schedule:
-    # arXiv announces new papers ~00:00 UTC Sun–Thu. Run daily at 06:30 UTC
-    # (12:00 PM IST). Weekend runs find nothing new and exit quietly.
-    - cron: "30 6 * * *"
+    # arXiv announces new papers ~00:00 UTC Sun–Thu. Run daily at 12:30 UTC
+    # = 7:30 AM US Central (summer; 6:30 AM in winter — GitHub cron is fixed UTC).
+    # Weekend runs find nothing new and exit quietly.
+    - cron: "30 12 * * *"
   workflow_dispatch: {}   # allow manual runs from the Actions tab
 
 permissions:
