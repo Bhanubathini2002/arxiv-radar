@@ -6,12 +6,20 @@ categories:
   - cs.CV   # computer vision (VLMs, document AI)
 
 interests: |
-  - Retrieval-augmented generation (RAG): architectures, chunking, reranking, evaluation
-  - Document intelligence: PDF parsing/extraction, layout analysis, OCR, table extraction
-  - Vision-language models (VLMs) applied to documents, especially document-to-LaTeX
-    or document-to-Markdown conversion
-  - LLM evaluation and benchmarking for retrieval or document-understanding tasks
-  - Multi-tenant / production LLM system design
+  I am building a production full-stack RAG chat application (LangGraph pipeline,
+  Chroma/Qdrant vector stores, streaming answers grounded in user documents).
+  Papers directly useful for this project:
+  - RAG architectures and quality: chunking strategies, hybrid retrieval, reranking,
+    query rewriting, multi-hop retrieval, grounded/faithful generation, citations
+  - RAG evaluation: Ragas-style metrics, faithfulness/answer-relevance measurement,
+    retrieval benchmarks, hallucination detection in grounded QA
+  - Document ingestion for RAG: PDF parsing/extraction, layout analysis, OCR,
+    table extraction, document chunking/schema design
+  - Conversational memory: long-term memory for chat assistants, context management,
+    conversation summarization
+  - Guardrails and safety for LLM apps: prompt injection defense, input/output
+    filtering, jailbreak detection in production systems
+  - Vector search: embedding models, indexing, efficiency in vector databases
 
 # Cheap, fast model for scoring title+abstract pairs
 model: gpt-4o-mini
